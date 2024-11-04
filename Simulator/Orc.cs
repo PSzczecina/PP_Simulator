@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,11 +13,9 @@ internal class Orc : Creature
     private int rage;
     public int Rage { 
         get { return rage; }
-        set {
-            if (value < 0) value = 0;
-            else if (value > 10) value = 10; 
-            rage = value; }
+        set { rage = Validator.Limiter(value, 0, 10); }
     }
+    public override string Info { get { return $"{Name} [{Level}][{rage}]"; } }
     public override string Power { get { return $"{Level * 7 + rage * 3}"; } }
     public void Hunt() { 
         Console.WriteLine($"{Name} is hunting.");

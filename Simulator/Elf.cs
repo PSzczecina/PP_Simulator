@@ -12,13 +12,9 @@ internal class Elf : Creature
     private int agility;
     public int Agility {
         get { return agility; }
-        set
-        {
-            if (value < 0) value = 0;
-            else if (value > 10) value = 10;
-            agility = value;
-        }
+        set { agility = Validator.Limiter(value, 0, 10); }
     }
+    public override string Info { get { return $"{Name} [{Level}][{agility}]"; } }
     public override string Power { get { return $"{Level*8+agility*2}"; } }
     public Elf() { }
     public Elf(string name, int level = 1, int agility=1) : base(name, level) {
