@@ -1,38 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Simulator;
-/*
- * NAME
-OK-----------           wartość domyślna "Unknown", 
-OK-----------           można nadać tylko raz przy inicjacji,
-OK-----------           nie może mieć spacji na początku, ani końcu - nadmiarowe usuń,
-musi mieć co najmniej 3 znaki (brakujące uzupełnij znakami #),
-może mieć najwyżej 25 znaków (za długie przytnij, usuń też ewentualne spacje na końcu, sprawdź czy po tym ma przynajmniej 3 znaki i ewentualnie uzupełnij znakami #),
-jeśli pierwszy znak jest małą literą to zamień ją na wielką.
- 
- * LEVEL
-OK-----------           wartość domyślna 1,
-OK-----------           można nadać wartość tylko raz przy inicjacji,
-    wartość ma być z przedziału 1-10 (za małe zamień na 1, za duże na 10),
- 
- var check_front_spaces = true;
-        var check_back_spaces = true;
-        while (check_front_spaces == true)
-        {
-            if (name[0].ToString() == " ") {name = name.Remove(0,1); } 
-            else { check_front_spaces = false;}
-        }
-        while (check_back_spaces == true)
-        {
-            if (name[name.Length-1].ToString() == " ") {name = name.Remove(name.Length-1,1); }
-            else { check_back_spaces = false; }
-        }
- 
- */
 
-internal class Creature
+
+public abstract class Creature
 {
-    private string name;
+    private string name = "Unknown";
     public string Name
     {
         get { return name; }
@@ -77,6 +50,7 @@ internal class Creature
         }
     }
     public string Info { get { return $"{Name} [{Level}]"; } }
+    public virtual string Power { get { return $"{level * 2}"; } }
     public Creature(string name="Unknown", int level=1)
     {
         Name = name;
@@ -84,7 +58,7 @@ internal class Creature
     }
     public Creature() { }
 
-    public void SayHi()
+    public virtual void SayHi()
     {
         Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
     }
