@@ -1,4 +1,4 @@
-﻿using System.Reflection.Emit;
+﻿using Simulator.Maps;
 
 namespace Simulator;
 
@@ -72,7 +72,7 @@ internal class Program
         Console.WriteLine(rec4);
 
         try { var rec5 = new Rectangle(1, 1, 5, 7); }
-        catch (Exception ex) { Console.WriteLine($"mamy błąd: {ex.Message}"); }
+        catch (Exception ex) { Console.WriteLine($"Błąd: {ex.Message}"); }
 
         Console.WriteLine(rec3.Contains(new Point(4, 4))); //T
         Console.WriteLine(rec3.Contains(new Point(8, 4))); //F
@@ -81,6 +81,22 @@ internal class Program
         Console.WriteLine(rec3.Contains(new Point(1, 4))); //F
     }
 
+    static void Lab5b()
+    {
+        var rectmap1 = new SmallSquareMap(7);
+
+        try { var rectmap2 = new SmallSquareMap(25); }
+        catch (Exception ex) { Console.WriteLine($"Błąd: {ex.Message}"); }
+
+        Console.WriteLine(rectmap1.Exist(new Point(5, 2))); //T
+        Console.WriteLine(rectmap1.Exist(new Point(-4, 2))); //F
+        Console.WriteLine(rectmap1.Exist(new Point(4, 12))); //F
+        Console.WriteLine(rectmap1.Next(new Point(1, 3), Direction.Left)); //(0,3)
+        Console.WriteLine(rectmap1.Next(new Point(2, 6), Direction.Up)); //(2,6)
+        Console.WriteLine(rectmap1.NextDiagonal(new Point(1, 3), Direction.Left));//(0,4)
+        Console.WriteLine(rectmap1.NextDiagonal(new Point(2, 6), Direction.Up));//(2,6)
+        Console.WriteLine(rectmap1.NextDiagonal(new Point(0, 0), Direction.Up));//(1,1)
+    }
     static void Main(string[] args)
     {
         /*Console.WriteLine("Starting Simulator!\n");
@@ -106,5 +122,7 @@ internal class Program
         //Console.WriteLine(p.NextDiagonal(Direction.Right));
 
         Lab5a();
+        Console.WriteLine("\n\n");
+        Lab5b();
     }
 }

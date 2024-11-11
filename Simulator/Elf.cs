@@ -12,17 +12,17 @@ internal class Elf : Creature
     private int agility;
     public int Agility {
         get { return agility; }
-        set { agility = Validator.Limiter(value, 0, 10); }
+        init { agility = Validator.Limiter(value, 0, 10); }
     }
     public override string Info { get { return $"{Name} [{Level}][{agility}]"; } }
     public override string Power { get { return $"{Level*8+agility*2}"; } }
     public Elf() { }
     public Elf(string name, int level = 1, int agility=1) : base(name, level) {
-        if (agility <0) agility = 0; 
-        else if (agility > 10) agility = 10;
+        //if (agility <0) agility = 0; 
+        //else if (agility > 10) agility = 10;
         Agility = agility;
-        Name = name;
-        Level = level;
+        //Name = name;
+        //Level = level;
         sing_count = 0;
     }
     public void Sing() { 
@@ -31,7 +31,7 @@ internal class Elf : Creature
         if (sing_count == 3)
         {
             sing_count = 0;
-            if (Agility < 10) Agility++;
+            if (agility < 10) agility++;
         }
     }
     public override void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}.");
