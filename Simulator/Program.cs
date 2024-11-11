@@ -56,6 +56,31 @@ internal class Program
         */
     }
 
+    static void Lab5a()
+    {
+        var rec1 = new Rectangle(1,3,6,5); //x1, x2, y1, y2 -> (1,5) (3,6)
+        var rec2 = new Rectangle(4,6,1,5); //x1, x2, y1, y2 -> (4,1) (6,5)
+        var point1 = new Point(2, 3);
+        var point2 = new Point(1, 6);
+        var point3 = new Point(5, 7);
+        var rec3 = new Rectangle(point1, point3); //(2,3) (5,7)
+        var rec4 = new Rectangle(point1, point2); //(2,3) (1,6) -> (1,3) (2,6) 
+
+        Console.WriteLine(rec1);
+        Console.WriteLine(rec2);
+        Console.WriteLine(rec3);
+        Console.WriteLine(rec4);
+
+        try { var rec5 = new Rectangle(1, 1, 5, 7); }
+        catch (Exception ex) { Console.WriteLine($"mamy błąd: {ex.Message}"); }
+
+        Console.WriteLine(rec3.Contains(new Point(4, 4))); //T
+        Console.WriteLine(rec3.Contains(new Point(8, 4))); //F
+        Console.WriteLine(rec3.Contains(new Point(4, 8))); //F
+        Console.WriteLine(rec3.Contains(new Point(4, 1))); //F
+        Console.WriteLine(rec3.Contains(new Point(1, 4))); //F
+    }
+
     static void Main(string[] args)
     {
         /*Console.WriteLine("Starting Simulator!\n");
@@ -70,10 +95,16 @@ internal class Program
         Creature balls = new Orc();
         ((Elf)cre).Sing();
         */
-        Creature c = new Elf("Elandor", 5, 3);
-        Console.WriteLine(c);  // ELF: Elandor [5]
+        //Creature c = new Elf("Elandor", 5, 3);
+        //Console.WriteLine(c);  // ELF: Elandor [5]
 
-        Lab4a();
-        Lab4b();
+        //Lab4a();
+        //Lab4b();
+
+        //Point p = new(10, 25);
+        //Console.WriteLine(p.Next(Direction.Right));
+        //Console.WriteLine(p.NextDiagonal(Direction.Right));
+
+        Lab5a();
     }
 }
