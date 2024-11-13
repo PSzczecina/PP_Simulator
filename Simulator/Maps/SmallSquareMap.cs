@@ -1,9 +1,10 @@
 ﻿namespace Simulator.Maps;
 
-internal class SmallSquareMap : Map
+public class SmallSquareMap : Map
 {
     public int Size { get; init; }
 
+    
     public SmallSquareMap(int size)
     {
         if (size < 5 || size>20) throw new ArgumentOutOfRangeException("Przedział wynosi <5;20>");

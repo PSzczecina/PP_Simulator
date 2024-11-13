@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Simulator;
 
-internal class Orc : Creature
+public class Orc : Creature
 {
     private int hunt_count;
     private int rage;
@@ -18,7 +18,6 @@ internal class Orc : Creature
     public override string Info { get { return $"{Name} [{Level}][{rage}]"; } }
     public override string Power { get { return $"{Level * 7 + rage * 3}"; } }
     public void Hunt() { 
-        Console.WriteLine($"{Name} is hunting.");
         hunt_count++;
         if (hunt_count==2)
         {
@@ -37,5 +36,5 @@ internal class Orc : Creature
         Level = level;
         hunt_count = 0;
     }
-    public override void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.");
+    public override string Greeting() => $"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.";
 }

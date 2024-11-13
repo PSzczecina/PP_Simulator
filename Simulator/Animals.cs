@@ -2,7 +2,7 @@
 
 namespace Simulator;
 
-internal class Animals
+public class Animals
 {
     private string description;
     public string Description

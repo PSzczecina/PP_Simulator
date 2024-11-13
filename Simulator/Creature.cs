@@ -61,27 +61,28 @@ public abstract class Creature
     }
     public Creature() { }
 
-    public virtual void SayHi()
+    public virtual string Greeting()
     {
-        Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
+        return $"Hi, I'm {Name}, my level is {Level}.";
     }
     public void Upgrade()
     {
         if (level < 10) level++;
     }
-    public void Go(Direction dir)
+    public string Go(Direction dir) => dir.ToString().ToLower();
+    
+    public string[] Go(Direction[] dirs)
     {
-        Console.WriteLine($"{name} goes {dir.ToString().ToLower()}");
-    }
-    public void Go(Direction[] dirs)
-    {
-        foreach (Direction dir in dirs) {
-            Go(dir);
+        var go_table = new string[dirs.Length];
+        for (int i = 0; i<dirs.Length; i++) {
+            go_table[i] = Go(dirs[i]);
         }
+        return go_table;
     }
-    public void Go(string input)
+    public string[] Go(string input)
     {
         Direction[] dirs = DirectionParser.Parse(input);
-        Go(dirs);
+        string[] go_table = Go(dirs);
+        return go_table;
     }
 }

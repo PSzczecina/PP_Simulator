@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Simulator;
 
-internal class Elf : Creature
+public class Elf : Creature
 {
     private int sing_count;
     private int agility;
@@ -26,7 +27,6 @@ internal class Elf : Creature
         sing_count = 0;
     }
     public void Sing() { 
-        Console.WriteLine($"{Name} is singing.");
         sing_count++;
         if (sing_count == 3)
         {
@@ -34,5 +34,5 @@ internal class Elf : Creature
             if (agility < 10) agility++;
         }
     }
-    public override void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}.");
+    public override string Greeting() => $"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}.";
 }
