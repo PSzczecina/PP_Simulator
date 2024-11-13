@@ -9,20 +9,20 @@ internal class Program
     {
         Console.WriteLine("HUNT TEST\n");
         var o = new Orc() { Name = "Gorbag", Rage = 7 };
-        o.SayHi();
+        //o.SayHi();
         for (int i = 0; i < 10; i++)
         {
             o.Hunt();
-            o.SayHi();
+            //o.SayHi();
         }
 
         Console.WriteLine("\nSING TEST\n");
         var e = new Elf("Legolas", agility: 2);
-        e.SayHi();
+        //e.SayHi();
         for (int i = 0; i < 10; i++)
         {
             e.Sing();
-            e.SayHi();
+            //e.SayHi();
         }
 
         Console.WriteLine("\nPOWER TEST\n");
