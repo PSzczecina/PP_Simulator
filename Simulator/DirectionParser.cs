@@ -2,9 +2,9 @@
 
 public static class DirectionParser
 {
-    public static Direction[] Parse(string text)
+    public static List<Direction> Parse(string text)
     {
-        Direction[] output = new Direction[text.Length];
+        List<Direction> output = new();
         text = text.ToLower();
         int output_order = 0;
 
@@ -15,25 +15,25 @@ public static class DirectionParser
                 default:
                     break;
                 case 'u':
-                    output[output_order] = Direction.Up; output_order++;
+                    output.Add(Direction.Up); output_order++;
                     break;
                 case 'r':
-                    output[output_order] = Direction.Right;output_order++;
+                    output.Add(Direction.Right);output_order++;
                     break;
                 case 'd':
-                    output[output_order] = Direction.Down; output_order++;
+                    output.Add(Direction.Down); output_order++;
                     break;
                 case 'l':
-                    output[output_order] = Direction.Left; output_order++;
+                    output.Add(Direction.Left); output_order++;
                     break;
             }
         }
-        Direction[] temp = new Direction[output_order];
+        /*Direction[] temp = new Direction[output_order];
         for (int i = 0; i < temp.Length; i++)
         {
             temp[i] = output[i];
         }
-        output = temp;
+        output = temp;*/
         return output;
 
     }

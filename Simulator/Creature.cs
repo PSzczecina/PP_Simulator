@@ -71,17 +71,17 @@ public abstract class Creature
     }
     public string Go(Direction dir) => dir.ToString().ToLower();
     
-    public string[] Go(Direction[] dirs)
+    public string[] Go(List<Direction> dirs)
     {
-        var go_table = new string[dirs.Length];
-        for (int i = 0; i<dirs.Length; i++) {
+        var go_table = new string[dirs.Count];
+        for (int i = 0; i<dirs.Count; i++) {
             go_table[i] = Go(dirs[i]);
         }
         return go_table;
     }
     public string[] Go(string input)
     {
-        Direction[] dirs = DirectionParser.Parse(input);
+        List<Direction> dirs = DirectionParser.Parse(input);
         string[] go_table = Go(dirs);
         return go_table;
     }

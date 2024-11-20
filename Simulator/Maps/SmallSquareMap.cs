@@ -1,18 +1,12 @@
 ﻿namespace Simulator.Maps;
 
-public class SmallSquareMap : Map
+public class SmallSquareMap : SmallMap
 {
-    public int Size { get; init; }
+    public SmallSquareMap(int size) : base(size, size) { }
 
-    
-    public SmallSquareMap(int size)
-    {
-        if (size < 5 || size>20) throw new ArgumentOutOfRangeException("Przedział wynosi <5;20>");
-        Size = size;
-    }
     public override bool Exist(Point p)
     {
-        if (p.X>Size-1 || p.Y > Size-1 || p.X < 0 || p.Y < 0) return false;
+        if (p.X>SizeX-1 || p.Y > SizeY-1 || p.X < 0 || p.Y < 0) return false;
         return true;
     }
 
