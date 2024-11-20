@@ -5,6 +5,12 @@
 /// </summary>
 public abstract class Map
 {
+    public abstract void Add(Creature creature, Point position);
+    //Remove
+    //Move - tutaj będzie raczej potrzebne
+    //At(x,y)
+    //At(point)
+
     public int SizeX { get; }
     public int SizeY { get; }
 

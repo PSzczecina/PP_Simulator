@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Simulator.Maps;
+using System.ComponentModel.DataAnnotations;
 
 namespace Simulator;
 /*
@@ -32,6 +33,14 @@ namespace Simulator;
 
 public abstract class Creature
 {
+    public Map? Map { get; private set; }
+    public Point Position { get; private set; }
+
+    public void InitMapAndPosition(Map map, Point position)
+    {
+        //to implement
+    }
+
     private string name = "Unknown";
     public string Name
     {
@@ -69,8 +78,10 @@ public abstract class Creature
     {
         if (level < 10) level++;
     }
-    public string Go(Direction dir) => dir.ToString().ToLower();
-    
+    public string Go(Direction dir) => dir.ToString().ToLower(); //ma użyć reguł swojej mapy - jak mapa = null to throw exception
+                                                                 // jak będzie inny punkt, to zmień tutejszą position oraz wywołać funkcję move() mapy
+
+    //wywalić wywalić  wywalić wywalić wywalić 
     public string[] Go(List<Direction> dirs)
     {
         var go_table = new string[dirs.Count];
@@ -79,6 +90,7 @@ public abstract class Creature
         }
         return go_table;
     }
+    //wywalić wywalić wywalić wywalić 
     public string[] Go(string input)
     {
         List<Direction> dirs = DirectionParser.Parse(input);

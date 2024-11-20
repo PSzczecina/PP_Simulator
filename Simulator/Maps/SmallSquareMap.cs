@@ -4,6 +4,11 @@ public class SmallSquareMap : SmallMap
 {
     public SmallSquareMap(int size) : base(size, size) { }
 
+    public override void Add(Creature creature, Point position)
+    {
+        throw new NotImplementedException();
+    }
+
     public override bool Exist(Point p)
     {
         if (p.X>SizeX-1 || p.Y > SizeY-1 || p.X < 0 || p.Y < 0) return false;
