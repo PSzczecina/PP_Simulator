@@ -4,10 +4,6 @@ public class SmallSquareMap : SmallMap
 {
     public SmallSquareMap(int size) : base(size, size) { }
 
-    public override void Add(Creature creature, Point position)
-    {
-        throw new NotImplementedException();
-    }
 
     public override bool Exist(Point p)
     {

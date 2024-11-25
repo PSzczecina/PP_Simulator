@@ -24,6 +24,7 @@ public class ValidatorTest
     [InlineData("         cze  ko  la  da  ", 4, 10, "Cze  ko  l")]
     [InlineData("  ok", 6, 10, "Ok####")]
     [InlineData("        ",4,12,"Unknown")]
+    [InlineData("a                         b", 4, 12, "A###")]
     public void Shortener_TestIf_BehavesProperly(string text, int min, int max, string expected)
     {
         //arrange

@@ -5,10 +5,12 @@
 /// </summary>
 public abstract class Map
 {
-    public abstract void Add(Creature creature, Point position);
-    //Remove
-    //Move - tutaj będzie raczej potrzebne
+    public abstract void Add(Point point, Creature creature);
+    public abstract void Remove(Point point, Creature creature);
+    public abstract void Move(Point oldpoint, Point newpoint, Creature creature);
+    public abstract List<Creature> At(int x, int y);
     //At(x,y)
+    public abstract List<Creature> At(Point point);
     //At(point)
 
     public int SizeX { get; }

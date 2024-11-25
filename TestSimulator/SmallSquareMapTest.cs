@@ -14,7 +14,7 @@ public class SmallSquareMapTest
         // Act
         var map = new SmallSquareMap(size);
         // Assert
-        Assert.Equal(size, map.Size);
+        Assert.Equal((size, size), (map.SizeX, map.SizeY));
     }
     [Theory]
     [InlineData(3)]

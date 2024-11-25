@@ -38,7 +38,8 @@ public abstract class Creature
 
     public void InitMapAndPosition(Map map, Point position)
     {
-        //to implement
+        Map = map;
+        Position = position;
     }
 
     private string name = "Unknown";
@@ -78,23 +79,10 @@ public abstract class Creature
     {
         if (level < 10) level++;
     }
-    public string Go(Direction dir) => dir.ToString().ToLower(); //ma użyć reguł swojej mapy - jak mapa = null to throw exception
-                                                                 // jak będzie inny punkt, to zmień tutejszą position oraz wywołać funkcję move() mapy
-
-    //wywalić wywalić  wywalić wywalić wywalić 
-    public string[] Go(List<Direction> dirs)
-    {
-        var go_table = new string[dirs.Count];
-        for (int i = 0; i<dirs.Count; i++) {
-            go_table[i] = Go(dirs[i]);
-        }
-        return go_table;
-    }
-    //wywalić wywalić wywalić wywalić 
-    public string[] Go(string input)
-    {
-        List<Direction> dirs = DirectionParser.Parse(input);
-        string[] go_table = Go(dirs);
-        return go_table;
-    }
+    public void Go(Direction dir) {
+        if (Map == null) throw new Exception("Stwor nie znajduje się na zadnej mapie.");
+        var nextpoint = Map.Next(Position, dir);
+        Map.Move(Position, nextpoint, this);
+        Position = nextpoint;
+    } 
 }
