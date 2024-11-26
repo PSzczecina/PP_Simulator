@@ -1,4 +1,6 @@
-﻿namespace Simulator;
+﻿using System.Runtime.CompilerServices;
+
+namespace Simulator;
 
 public static class DirectionParser
 {
@@ -28,13 +30,12 @@ public static class DirectionParser
                     break;
             }
         }
-        /*Direction[] temp = new Direction[output_order];
-        for (int i = 0; i < temp.Length; i++)
-        {
-            temp[i] = output[i];
-        }
-        output = temp;*/
+        
         return output;
+
+    }
+    public static string ToString() {
+        return "";
 
     }
 }

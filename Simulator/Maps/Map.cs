@@ -8,9 +8,9 @@ public abstract class Map
     public abstract void Add(Point point, Creature creature);
     public abstract void Remove(Point point, Creature creature);
     public abstract void Move(Point oldpoint, Point newpoint, Creature creature);
-    public abstract List<Creature> At(int x, int y);
+    public abstract List<Creature>? At(int x, int y);
     //At(x,y)
-    public abstract List<Creature> At(Point point);
+    public abstract List<Creature>? At(Point point);
     //At(point)
 
     public int SizeX { get; }
@@ -23,7 +23,7 @@ public abstract class Map
         if (sizeY < 5) throw new ArgumentOutOfRangeException(nameof(sizeY), "Too narrow");
         SizeX = sizeX;
         SizeY = sizeY;
-        _map = new Rectangle(0,0, SizeX-1, SizeY-1);
+        _map = new Rectangle(0, SizeX - 1, 0, SizeY-1);
     }
 
     /// <summary>

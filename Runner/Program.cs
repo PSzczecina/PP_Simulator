@@ -1,5 +1,7 @@
-﻿using Simulator;
+﻿using SimConsole;
+using Simulator;
 using Simulator.Maps;
+using System.Text;
 
 namespace Simulator;
 
@@ -98,32 +100,70 @@ internal class Program
         Console.WriteLine(rectmap1.NextDiagonal(new Point(2, 6), Direction.Up));//(2,6)
         Console.WriteLine(rectmap1.NextDiagonal(new Point(0, 0), Direction.Up));//(1,1)
     }
+
+    static void Lab7testA()
+    {
+        bool cleanmode = true; //true to że czyści konsolkę co readkey. Jak coś to podmienię zwyczajnie na false - ewentualnie usunę
+
+        Console.OutputEncoding = Encoding.UTF8;
+        SmallSquareMap map = new(5);
+        List<Creature> creatures = [new Orc("Gorbag"), new Elf("Elandor")];
+        List<Point> points = [new(2, 2), new(3, 1)];
+        string moves = "dlrludl";
+
+        Simulation simulation = new(map, creatures, points, moves);
+        MapVisualizer mapVisualizer = new(simulation.Map);
+
+        mapVisualizer.Draw();
+        Console.ReadKey();
+        while (!simulation.Finished)
+        {
+            if (cleanmode) Console.Clear();
+            simulation.Turn();
+            mapVisualizer.Draw();
+            mapVisualizer.DisplayCreatureInfo(simulation.ReturnMovedCreatureInfo(),
+                                            simulation.ReturnMovedCreaturePosition(),
+                                            simulation.TurnCounter,
+                                            simulation.ReturnMoveTaken());
+            Console.ReadKey();
+        }
+    }
+
+    static void Lab7testB()
+    {
+        //cleanmode
+        Console.Write("Jeśli chcesz żeby konsola po ruchu rysowała się na nowo, wpisz 1. Jeśli nie - podaj cokolwiek: ");
+        bool cleanmode = false;
+        if (Console.ReadLine() == 1.ToString()) { cleanmode = true; Console.Clear(); }
+        //cleanmode
+
+        Console.OutputEncoding = Encoding.UTF8;
+        SmallTorusMap map = new(5,7);
+        List<Creature> creatures = [new Orc("Debjeva"), new Elf("Cuwfy"), new Elf("Cyńi Htajke")];
+        List<Point> points = [new(0, 2), new(3, 1), new(4,4)];
+        string moves = "rrldudlldu";
+
+        Simulation simulation = new(map, creatures, points, moves);
+        MapVisualizer mapVisualizer = new(simulation.Map);
+
+        mapVisualizer.Draw();
+        Console.ReadKey();
+        while (!simulation.Finished)
+        {
+            if (cleanmode) Console.Clear();
+            simulation.Turn();
+            mapVisualizer.Draw();
+            mapVisualizer.DisplayCreatureInfo(simulation.ReturnMovedCreatureInfo(),
+                                            simulation.ReturnMovedCreaturePosition(),
+                                            simulation.TurnCounter,
+                                            simulation.ReturnMoveTaken());
+            Console.ReadKey();
+        }
+    }
+
+
     static void Main(string[] args)
     {
-        /*Console.WriteLine("Starting Simulator!\n");
-            Elf e = new() { Name = "Fëanor", Level = 6, Agility = 3 };
-        e.SayHi();
-        e.Upgrade();
-        Console.WriteLine(e.Info);
-        e.Sing();
-        Orc bauba = new() { Name = "Karkrata", Level = 3 };
-        bauba.Hunt();
-        Creature cre = new Elf();
-        Creature balls = new Orc();
-        ((Elf)cre).Sing();
-        */
-        //Creature c = new Elf("Elandor", 5, 3);
-        //Console.WriteLine(c);  // ELF: Elandor [5]
-
-        //Lab4a();
-        //Lab4b();
-
-        //Point p = new(10, 25);
-        //Console.WriteLine(p.Next(Direction.Right));
-        //Console.WriteLine(p.NextDiagonal(Direction.Right));
-
-        Lab5a();
-        Console.WriteLine("\n\n");
-        Lab5b();
+        Lab7testB();    
     }
 }

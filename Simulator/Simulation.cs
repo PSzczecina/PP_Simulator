@@ -1,10 +1,18 @@
 ﻿using Simulator.Maps;
+using System.Runtime.CompilerServices;
 
 namespace Simulator;
 
 public class Simulation
 {
-    private int creature_position_id=0; //do odliczania ruchu oraz którego potwora i pozycji tura to jest
+    private int creature_position_id = 0; //do odliczania ruchu oraz którego potwora i pozycji tura to jest
+    private int turnCounter = 0;
+    public int TurnCounter { get { return turnCounter; } }
+    private Creature? movedCreature;
+    private string? moveTaken;
+    public string ReturnMovedCreaturePosition() => movedCreature.Position.ToString();
+    public string ReturnMovedCreatureInfo() => movedCreature.ToString();
+    public string ReturnMoveTaken() => moveTaken;
 
     /// <summary>
     /// Simulation's map.
@@ -61,9 +69,10 @@ public class Simulation
         Creatures = creatures;
         Positions = positions;
         for (int i = 0; i < creatures.Count; i++) {
-            Creatures[i].InitMapAndPosition(Map, Positions[i]); 
+            Creatures[i].InitMapAndPosition(Map, Positions[i]);
+            Map.Add(Positions[i], Creatures[i]);
         }
-        Moves = DirectionParser.Parse(moves).ToString();
+        Moves = moves;  //DirectionParser.Parse(moves).ToString();
     }
 
     /// <summary>
@@ -74,10 +83,20 @@ public class Simulation
         if (Finished) {
             throw new Exception("End of simulation");
         }
+        //ten segment sprawdza czy teraźniejszy element w Moves jest poprawny. Jak nie - usuwa go i sprawdza następny
+        var current_move = DirectionParser.Parse(CurrentMoveName);
+        while (!current_move.Any())
+        {
+            Moves.Remove(creature_position_id);
+            current_move = DirectionParser.Parse(CurrentMoveName);
+        }
 
-        CurrentCreature.Go(DirectionParser.Parse(CurrentMoveName)[0]); //wykonaj ruch
+        CurrentCreature.Go(current_move[0]); //wykonaj ruch
+        movedCreature = CurrentCreature;
+        moveTaken = CurrentMoveName;
 
         creature_position_id++;
+        turnCounter++;
         if (creature_position_id >= Moves.Length) Finished = true;
     }
 }
