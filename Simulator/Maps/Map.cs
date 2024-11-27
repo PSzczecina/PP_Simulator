@@ -5,12 +5,12 @@
 /// </summary>
 public abstract class Map
 {
-    public abstract void Add(Point point, Creature creature);
-    public abstract void Remove(Point point, Creature creature);
-    public abstract void Move(Point oldpoint, Point newpoint, Creature creature);
-    public abstract List<Creature>? At(int x, int y);
+    public abstract void Add(Point point, IMappable iMappable);
+    public abstract void Remove(Point point, IMappable iMappable);
+    public abstract void Move(Point oldpoint, Point newpoint, IMappable iMappable);
+    public abstract List<IMappable>? At(int x, int y);
     //At(x,y)
-    public abstract List<Creature>? At(Point point);
+    public abstract List<IMappable>? At(Point point);
     //At(point)
 
     public int SizeX { get; }

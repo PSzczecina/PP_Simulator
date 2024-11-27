@@ -5,13 +5,13 @@ namespace Simulator;
 
 public class Simulation
 {
-    private int creature_position_id = 0; //do odliczania ruchu oraz którego potwora i pozycji tura to jest
+    private int iMappable_position_id = 0; //do odliczania ruchu oraz którego potwora i pozycji tura to jest
     private int turnCounter = 0;
     public int TurnCounter { get { return turnCounter; } }
-    private Creature? movedCreature;
+    private IMappable? movedIMappable;
     private string? moveTaken;
-    public string ReturnMovedCreaturePosition() => movedCreature.Position.ToString();
-    public string ReturnMovedCreatureInfo() => movedCreature.ToString();
+    //public string ReturnMovedIMappablePosition() => movedIMappable.Position.ToString();
+    public string ReturnMovedIMappableInfo() => movedIMappable.ToString();
     public string ReturnMoveTaken() => moveTaken;
 
     /// <summary>
@@ -20,21 +20,21 @@ public class Simulation
     public Map Map { get; }
 
     /// <summary>
-    /// Creatures moving on the map.
+    /// IMappables moving on the map.
     /// </summary>
-    public List<Creature> Creatures { get; }
+    public List<IMappable> IMappables { get; }
 
     /// <summary>
-    /// Starting positions of creatures.
+    /// Starting positions of iMappables.
     /// </summary>
     public List<Point> Positions { get; }
 
     /// <summary>
-    /// Cyclic list of creatures moves. 
+    /// Cyclic list of iMappables moves. 
     /// Bad moves are ignored - use DirectionParser.
-    /// First move is for first creature, second for second and so on.
-    /// When all creatures make moves, 
-    /// next move is again for first creature and so on.
+    /// First move is for first iMappable, second for second and so on.
+    /// When all iMappables make moves, 
+    /// next move is again for first iMappable and so on.
     /// </summary>
     public string Moves { get; }
 
@@ -44,39 +44,39 @@ public class Simulation
     public bool Finished = false;
 
     /// <summary>
-    /// Creature which will be moving current turn.
+    /// IMappable which will be moving current turn.
     /// </summary>
-    public Creature CurrentCreature { get { return Creatures[creature_position_id%Creatures.Count]; }/* implement getter only */ }
+    public IMappable CurrentIMappable { get { return IMappables[iMappable_position_id%IMappables.Count]; }/* implement getter only */ }
 
     /// <summary>
     /// Lowercase name of direction which will be used in current turn.
     /// </summary>
-    public string CurrentMoveName { get { return Moves[creature_position_id].ToString(); }/* implement getter only */ }
+    public string CurrentMoveName { get { return Moves[iMappable_position_id].ToString(); }/* implement getter only */ }
 
     /// <summary>
     /// Simulation constructor.
     /// Throw errors:
-    /// if creatures' list is empty,
-    /// if number of creatures differs from 
+    /// if iMappables' list is empty,
+    /// if number of iMappables differs from 
     /// number of starting positions.
     /// </summary>
-    public Simulation(Map map, List<Creature> creatures,
+    public Simulation(Map map, List<IMappable> iMappables,
         List<Point> positions, string moves)
     {
-        if (creatures.Count == 0) throw new ArgumentException("Creatures are mandatory for Simulation.");
-        if (positions.Count != creatures.Count) throw new ArgumentException("Numbers of creatures and positions don't align with eachother.");
+        if (iMappables.Count == 0) throw new ArgumentException("IMappables are mandatory for Simulation.");
+        if (positions.Count != iMappables.Count) throw new ArgumentException("Numbers of iMappables and positions don't align with eachother.");
         Map = map;
-        Creatures = creatures;
+        IMappables = iMappables;
         Positions = positions;
-        for (int i = 0; i < creatures.Count; i++) {
-            Creatures[i].InitMapAndPosition(Map, Positions[i]);
-            Map.Add(Positions[i], Creatures[i]);
+        for (int i = 0; i < iMappables.Count; i++) {
+            IMappables[i].InitMapAndPosition(Map, Positions[i]);
+            Map.Add(Positions[i], IMappables[i]);
         }
         Moves = moves;  //DirectionParser.Parse(moves).ToString();
     }
 
     /// <summary>
-    /// Makes one move of current creature in current direction.
+    /// Makes one move of current iMappable in current direction.
     /// Throw error if simulation is finished.
     /// </summary>
     public void Turn() {
@@ -87,16 +87,16 @@ public class Simulation
         var current_move = DirectionParser.Parse(CurrentMoveName);
         while (!current_move.Any())
         {
-            Moves.Remove(creature_position_id);
+            Moves.Remove(iMappable_position_id);
             current_move = DirectionParser.Parse(CurrentMoveName);
         }
 
-        CurrentCreature.Go(current_move[0]); //wykonaj ruch
-        movedCreature = CurrentCreature;
+        CurrentIMappable.Go(current_move[0]); //wykonaj ruch
+        movedIMappable = CurrentIMappable;
         moveTaken = CurrentMoveName;
 
-        creature_position_id++;
+        iMappable_position_id++;
         turnCounter++;
-        if (creature_position_id >= Moves.Length) Finished = true;
+        if (iMappable_position_id >= Moves.Length) Finished = true;
     }
 }

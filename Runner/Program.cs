@@ -107,7 +107,7 @@ internal class Program
 
         Console.OutputEncoding = Encoding.UTF8;
         SmallSquareMap map = new(5);
-        List<Creature> creatures = [new Orc("Gorbag"), new Elf("Elandor")];
+        List<IMappable> creatures = [new Orc("Gorbag"), new Elf("Elandor")];
         List<Point> points = [new(2, 2), new(3, 1)];
         string moves = "dlrludl";
 
@@ -121,10 +121,11 @@ internal class Program
             if (cleanmode) Console.Clear();
             simulation.Turn();
             mapVisualizer.Draw();
-            mapVisualizer.DisplayCreatureInfo(simulation.ReturnMovedCreatureInfo(),
+            //stary kod - już nie działa. Zmień/napraw/usuń.
+            /*mapVisualizer.DisplayCreatureInfo(simulation.ReturnMovedCreatureInfo(),
                                             simulation.ReturnMovedCreaturePosition(),
                                             simulation.TurnCounter,
-                                            simulation.ReturnMoveTaken());
+                                            simulation.ReturnMoveTaken());*/
             Console.ReadKey();
         }
     }
@@ -139,7 +140,7 @@ internal class Program
 
         Console.OutputEncoding = Encoding.UTF8;
         SmallTorusMap map = new(5,7);
-        List<Creature> creatures = [new Orc("Debjeva"), new Elf("Cuwfy"), new Elf("Cyńi Htajke")];
+        List<IMappable> creatures = [new Orc("Debjeva"), new Elf("Cuwfy"), new Elf("Cyńi Htajke")];
         List<Point> points = [new(0, 2), new(3, 1), new(4,4)];
         string moves = "rrldudlldu";
 
@@ -153,10 +154,10 @@ internal class Program
             if (cleanmode) Console.Clear();
             simulation.Turn();
             mapVisualizer.Draw();
-            mapVisualizer.DisplayCreatureInfo(simulation.ReturnMovedCreatureInfo(),
+            /*mapVisualizer.DisplayCreatureInfo(simulation.ReturnMovedCreatureInfo(),
                                             simulation.ReturnMovedCreaturePosition(),
                                             simulation.TurnCounter,
-                                            simulation.ReturnMoveTaken());
+                                            simulation.ReturnMoveTaken());*/
             Console.ReadKey();
         }
     }
