@@ -33,6 +33,7 @@ namespace Simulator;
 
 public abstract class Creature : IMappable
 {
+    public abstract string Symbol { get; }
     public Map? Map { get; private set; }
     public Point Position { get; private set; }
 
@@ -84,5 +85,5 @@ public abstract class Creature : IMappable
         var nextpoint = Map.Next(Position, dir);
         Map.Move(Position, nextpoint, this);
         Position = nextpoint;
-    } 
+    }
 }

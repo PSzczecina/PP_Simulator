@@ -30,14 +30,11 @@ public class MapVisualizer
                 if (i % 2 == 0) Console.Write(Box.Vertical);
                 else
                 {//tutaj kod czy pojawia się stwór czy nic
-
-                    //błąd - Map.At() zwraca null - nwm czemu
                     if (Map.At(i/2, j) is not null)
                     {
-                        if (Map.At(i/2, j).Count > 1) Console.Write("X");
-                        else if (Map.At(i / 2, j).Count ==0 ) Console.Write(" ");
-                        else if (Map.At(i/2, j)[0].GetType() == typeof(Elf)) Console.Write("E");
-                        else if (Map.At(i/2, j)[0].GetType() == typeof(Orc)) Console.Write("O");
+                        if (Map.At(i / 2, j).Count > 1) Console.Write("X");
+                        else if (Map.At(i / 2, j).Count == 0) Console.Write(" ");
+                        else Console.Write(Map.At(i / 2, j)[0].Symbol);
                     }
                     else Console.Write(" ");
                 }
@@ -85,7 +82,7 @@ public class MapVisualizer
         Console.WriteLine();
     }
 
-    public void DisplayCreatureInfo(string info, string position, int turn, string dir)
+    public void DisplayCreatureInfo(string info, int turn, string dir, string position="<TBA>")
     {
         Console.WriteLine($"Tura {turn}.");
         Console.WriteLine($"{info} ruszył na pozycje {position}.");

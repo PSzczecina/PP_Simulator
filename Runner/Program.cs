@@ -101,15 +101,18 @@ internal class Program
         Console.WriteLine(rectmap1.NextDiagonal(new Point(0, 0), Direction.Up));//(1,1)
     }
 
-    static void Lab7testA()
+    static void Lab8()
     {
-        bool cleanmode = true; //true to że czyści konsolkę co readkey. Jak coś to podmienię zwyczajnie na false - ewentualnie usunę
+        bool cleanmode = false; //true to że czyści konsolkę co readkey. Jak coś to podmienię zwyczajnie na false - ewentualnie usunę
 
         Console.OutputEncoding = Encoding.UTF8;
-        SmallSquareMap map = new(5);
-        List<IMappable> creatures = [new Orc("Gorbag"), new Elf("Elandor")];
-        List<Point> points = [new(2, 2), new(3, 1)];
-        string moves = "dlrludl";
+        SmallTorusMap map = new(8,6);
+
+        var strus = new Birds() { CanFly= false, Description="Strus"};
+        var kroliki = new Animals() { Description="Kroliki"};
+        List<IMappable> creatures = [new Orc("Gorbag"), new Elf("Elandor"), new Birds() { Description="Wroble"}, strus, kroliki];
+        List<Point> points = [new(2, 2), new(3, 1), new(0,0), new(4,4), new(1,5)];
+        string moves = "dlrludluurldldd";
 
         Simulation simulation = new(map, creatures, points, moves);
         MapVisualizer mapVisualizer = new(simulation.Map);
@@ -122,10 +125,10 @@ internal class Program
             simulation.Turn();
             mapVisualizer.Draw();
             //stary kod - już nie działa. Zmień/napraw/usuń.
-            /*mapVisualizer.DisplayCreatureInfo(simulation.ReturnMovedCreatureInfo(),
-                                            simulation.ReturnMovedCreaturePosition(),
+            mapVisualizer.DisplayCreatureInfo(simulation.MovedIMappableInfo.Info,
                                             simulation.TurnCounter,
-                                            simulation.ReturnMoveTaken());*/
+                                            simulation.ReturnMoveTaken(),
+                                            simulation.MovedIMappableInfo.Position.ToString());
             Console.ReadKey();
         }
     }
@@ -165,6 +168,6 @@ internal class Program
 
     static void Main(string[] args)
     {
-        Lab7testB();    
+        Lab8();    
     }
 }
