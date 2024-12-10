@@ -46,12 +46,12 @@ public class Simulation
     /// <summary>
     /// IMappable which will be moving current turn.
     /// </summary>
-    public IMappable CurrentIMappable { get { return IMappables[iMappable_position_id%IMappables.Count]; }/* implement getter only */ }
+    public IMappable CurrentIMappable { get { return IMappables[iMappable_position_id % IMappables.Count]; } private set { } /* implement getter only */ }
 
     /// <summary>
     /// Lowercase name of direction which will be used in current turn.
     /// </summary>
-    public string CurrentMoveName { get { return Moves[iMappable_position_id].ToString(); }/* implement getter only */ }
+    public string CurrentMoveName { get { return Moves[iMappable_position_id].ToString(); } private set { }/* implement getter only */ }
 
     /// <summary>
     /// Simulation constructor.
@@ -75,6 +75,20 @@ public class Simulation
         Moves = moves;  //DirectionParser.Parse(moves).ToString();
     }
 
+    public Simulation(Simulation q)
+    {
+        this.Map = q.Map;
+        this.IMappables = q.IMappables;
+        this.Positions = q.Positions;
+        for (int i = 0; i < q.IMappables.Count; i++)
+        {
+            this.Map.Add(this.Positions[i], this.IMappables[i]);
+        } 
+        this.Moves = q.Moves;
+        this.iMappable_position_id = q.iMappable_position_id;
+
+    }
+
     /// <summary>
     /// Makes one move of current iMappable in current direction.
     /// Throw error if simulation is finished.
@@ -93,11 +107,13 @@ public class Simulation
         }
 
         CurrentIMappable.Go(current_move[0]); //wykonaj ruch
-        movedIMappable = CurrentIMappable;
-        moveTaken = CurrentMoveName;
 
-        iMappable_position_id++;
-        turnCounter++;
-        if (iMappable_position_id >= Moves.Length) Finished = true;
+        if (iMappable_position_id >= Moves.Length - 1) Finished = true;
+        else {
+            movedIMappable = CurrentIMappable;
+            moveTaken = CurrentMoveName;
+            iMappable_position_id++;
+            turnCounter++;
+        }
     }
 }

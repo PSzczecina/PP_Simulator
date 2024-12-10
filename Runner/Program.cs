@@ -183,12 +183,14 @@ internal class Program
         MapVisualizer mapVisualizer = new(simulation.Map);
 
         mapVisualizer.Draw();
+        mapVisualizer.DisplayMap();
         Console.ReadKey();
         while (!simulation.Finished)
         {
             if (cleanmode) Console.Clear();
             simulation.Turn();
             mapVisualizer.Draw();
+            mapVisualizer.DisplayMap();
             //stary kod - już nie działa. Zmień/napraw/usuń.
             mapVisualizer.DisplayCreatureInfo(simulation.MovedIMappableInfo.Info,
                                             simulation.TurnCounter,
@@ -198,8 +200,51 @@ internal class Program
         }
     }
 
+    static void Lab9b()
+    {
+        bool cleanmode = false; //true to że czyści konsolkę co readkey. Jak coś to podmienię zwyczajnie na false - ewentualnie usunę
+
+        Console.OutputEncoding = Encoding.UTF8;
+        BigBounceMap map = new(8, 6);
+
+        var strus = new Birds() { CanFly = false, Description = "Strus" };
+        var orly = new Birds() { CanFly = true, Description = "orly" };
+        var kroliki = new Animals() { Description = "kroliki", Size = 7 };
+        List<IMappable> creatures = [new Orc("Gorbag"), new Elf("Elandor"), kroliki, strus, orly];
+        List<Point> points = [new(0, 0), new(7, 5), new(2, 2), new(5, 5), new(4, 1)];
+        string moves = "lrduuulrdduullrdrrud";
+
+        Simulation simulation = new(map, creatures, points, moves);
+        SimulationHistory simHistory = new(simulation);
+
+        MapVisualizer mapVisualizer = new(simulation.Map);
+
+        mapVisualizer.Draw();
+        mapVisualizer.DisplayMap();
+        Console.WriteLine($"podaj turę z {simHistory.MapStates.Count} jaką chcesz: ");
+        int tura = int.Parse(Console.ReadLine());
+        while (true)
+        {
+
+            if (cleanmode) Console.Clear();
+            mapVisualizer.SetMap(simHistory.MapStates[tura]);
+            mapVisualizer.Draw();
+            mapVisualizer.DisplayMap();
+
+            mapVisualizer.DisplayCreatureInfo(simHistory.MovedMappables[tura-1].Info,
+                                            tura,
+                                            "tba",
+                                            simHistory.MovedToPoints[tura-1].ToString());
+
+            Console.WriteLine($"podaj turę z {simHistory.MapStates.Count} jaką chcesz: ");
+            tura = int.Parse(Console.ReadLine());
+        }
+    }
+
+
+
     static void Main(string[] args)
     {
-        Lab9();    
+        Lab9b();    
     }
 }

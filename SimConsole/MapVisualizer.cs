@@ -5,10 +5,12 @@ namespace SimConsole;
 //do zrobienia - rozjebane to je
 public class MapVisualizer
 {
-    public Map Map { get; init; }
+    public Map Map { get; private set; }
     public MapVisualizer(Map _map) {
         Map = _map;
     }
+
+    public string Display { get; private set; }
     /*
      * Mapa jest rysowana tak, że X idzie w prawo, a Y w dół
      * 
@@ -26,60 +28,59 @@ public class MapVisualizer
             if (j == 0) DrawMapRows(0);
             else DrawMapRows(1);
             for (int i = 0; i < Map.SizeX*2+1; i++)  { //wiersze - szerokości X*2+1, bo |o| |e| == trzy miejsca i 4 segmenty mapy
-                if (i == 0) Console.Write($"{j,-3}");
-                if (i % 2 == 0) Console.Write(Box.Vertical);
+                if (i == 0) Display+=($"{j,-3}");
+                if (i % 2 == 0) Display+=(Box.Vertical);
                 else
                 {//tutaj kod czy pojawia się stwór czy nic
                     if (Map.At(i/2, j) is not null)
                     {
-                        if (Map.At(i / 2, j).Count > 1) Console.Write("X");
-                        else if (Map.At(i / 2, j).Count == 0) Console.Write(" ");
-                        else Console.Write(Map.At(i / 2, j)[0].Symbol);
+                        if (Map.At(i / 2, j).Count > 1) Display+=("X");
+                        else if (Map.At(i / 2, j).Count == 0) Display+=(" ");
+                        else Display+=(Map.At(i / 2, j)[0].Symbol);
                     }
-                    else Console.Write(" ");
+                    else Display+=(" ");
                 }
             }
-            Console.WriteLine();
+            Display+= ("\n");
         }
         DrawMapRows(2);
-        Console.WriteLine();
-
+        Display+= ("\n");
     }
 
     private void DrawMapRows(int position) //position: 0-top, 1-middle, 2-bottom, -1-legenda do Y
     {
-        if (position == -1) Console.Write("y\\x");
-        else Console.Write("   ");
+        if (position == -1) Display+=("y\\x");
+        else Display+=("   ");
         for (int i = 0; i < Map.SizeX*2+1; i++)
         {
             if (position == 0)
             {
-                if (i == 0) Console.Write(Box.TopLeft);
-                else if (i == Map.SizeX*2) Console.Write(Box.TopRight);
-                else if (i%2==0) Console.Write(Box.TopMid);
-                else Console.Write(Box.Horizontal);
+                if (i == 0) Display+=(Box.TopLeft);
+                else if (i == Map.SizeX*2) Display+=(Box.TopRight);
+                else if (i%2==0) Display+=(Box.TopMid);
+                else Display+=(Box.Horizontal);
             } 
             else if (position == 1)
             {
-                if (i == 0) Console.Write(Box.MidLeft);
-                else if (i == Map.SizeX*2) Console.Write(Box.MidRight);
-                else if (i % 2 == 0) Console.Write(Box.Cross);
-                else Console.Write(Box.Horizontal);
+                if (i == 0) Display+=(Box.MidLeft);
+                else if (i == Map.SizeX*2) Display+=(Box.MidRight);
+                else if (i % 2 == 0) Display+=(Box.Cross);
+                else Display+=(Box.Horizontal);
             }
             else if (position == 2)
             {
-                if (i == 0) Console.Write(Box.BottomLeft);
-                else if (i == Map.SizeX*2) Console.Write(Box.BottomRight);
-                else if (i % 2 == 0) Console.Write(Box.BottomMid);
-                else Console.Write(Box.Horizontal);
+                if (i == 0) Display+=(Box.BottomLeft);
+                else if (i == Map.SizeX*2) Display+=(Box.BottomRight);
+                else if (i % 2 == 0) Display+=(Box.BottomMid);
+                else Display+=(Box.Horizontal);
             }
             else if (position == -1)
             {
-                if (i % 2 == 1) Console.Write(i / 2); 
-                else Console.Write(" ");
+                if (i % 2 == 1) Display+=(i / 2); 
+                else Display+=(" ");
             }
         }
-        Console.WriteLine();
+        Display+=("\n");
     }
 
     public void DisplayCreatureInfo(string info, int turn, string dir, string position="<TBA>")
@@ -87,5 +88,15 @@ public class MapVisualizer
         Console.WriteLine($"Tura {turn}.");
         Console.WriteLine($"{info} ruszył na pozycje {position}.");
         Console.WriteLine($"Był to kierunek: {dir}");
+    }
+
+    public void SetMap(Map _map)
+    {
+        this.Map = _map;
+    }
+
+    public void DisplayMap()
+    {
+        Console.WriteLine(Display);
     }
 }
