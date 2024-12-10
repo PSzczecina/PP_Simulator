@@ -165,9 +165,41 @@ internal class Program
         }
     }
 
+    static void Lab9()
+    {
+        bool cleanmode = false; //true to że czyści konsolkę co readkey. Jak coś to podmienię zwyczajnie na false - ewentualnie usunę
+
+        Console.OutputEncoding = Encoding.UTF8;
+        BigBounceMap map = new(8, 6);
+
+        var strus = new Birds() { CanFly = false, Description = "Strus" };
+        var orly = new Birds() { CanFly = true, Description = "orly" };
+        var kroliki = new Animals() { Description = "kroliki", Size = 7 };
+        List<IMappable> creatures = [new Orc("Gorbag"), new Elf("Elandor"), kroliki, strus, orly];
+        List<Point> points = [new(0,0), new(7,5), new(2,2), new(5,5), new(4,1)];
+        string moves = "lrduuulrdduullrdrrud";
+
+        Simulation simulation = new(map, creatures, points, moves);
+        MapVisualizer mapVisualizer = new(simulation.Map);
+
+        mapVisualizer.Draw();
+        Console.ReadKey();
+        while (!simulation.Finished)
+        {
+            if (cleanmode) Console.Clear();
+            simulation.Turn();
+            mapVisualizer.Draw();
+            //stary kod - już nie działa. Zmień/napraw/usuń.
+            mapVisualizer.DisplayCreatureInfo(simulation.MovedIMappableInfo.Info,
+                                            simulation.TurnCounter,
+                                            simulation.ReturnMoveTaken(),
+                                            simulation.MovedIMappableInfo.Position.ToString());
+            Console.ReadKey();
+        }
+    }
 
     static void Main(string[] args)
     {
-        Lab8();    
+        Lab9();    
     }
 }

@@ -16,7 +16,7 @@ public abstract class Map
     public int SizeX { get; }
     public int SizeY { get; }
 
-    private readonly Rectangle _map;
+    protected readonly Rectangle _map;
     protected Map(int sizeX, int sizeY)
     {
         if (sizeX < 5) throw new ArgumentOutOfRangeException(nameof(sizeX), "Too narrow");

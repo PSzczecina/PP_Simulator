@@ -6,14 +6,14 @@ public readonly struct Point
     public Point(int x, int y) => (X,Y) = (x,y);
     public override string ToString() => $"({X}, {Y})";
 
-    public Point Next (Direction direction)
+    public Point Next (Direction direction, int moveMultip=1)
     {
         return direction switch
         {
-            Direction.Left => new Point(X - 1, Y),
-            Direction.Right => new Point(X + 1, Y),
-            Direction.Up => new Point(X, Y + 1),
-            Direction.Down => new Point(X, Y - 1),
+            Direction.Left => new Point(X - 1*moveMultip, Y),
+            Direction.Right => new Point(X + 1*moveMultip, Y),
+            Direction.Up => new Point(X, Y + 1 * moveMultip),
+            Direction.Down => new Point(X, Y - 1 * moveMultip),
             _ => new Point(X, Y),
         };
     }

@@ -26,7 +26,7 @@ public class MapVisualizer
             if (j == 0) DrawMapRows(0);
             else DrawMapRows(1);
             for (int i = 0; i < Map.SizeX*2+1; i++)  { //wiersze - szerokości X*2+1, bo |o| |e| == trzy miejsca i 4 segmenty mapy
-                if (i == 0) Console.Write($"{j}  ");
+                if (i == 0) Console.Write($"{j,-3}");
                 if (i % 2 == 0) Console.Write(Box.Vertical);
                 else
                 {//tutaj kod czy pojawia się stwór czy nic
