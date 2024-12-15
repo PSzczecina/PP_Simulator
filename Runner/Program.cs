@@ -170,7 +170,7 @@ internal class Program
         bool cleanmode = false; //true to że czyści konsolkę co readkey. Jak coś to podmienię zwyczajnie na false - ewentualnie usunę
 
         Console.OutputEncoding = Encoding.UTF8;
-        BigBounceMap map = new(8, 6);
+        BigTorusMap map = new(8, 6);
 
         var strus = new Birds() { CanFly = false, Description = "Strus" };
         var orly = new Birds() { CanFly = true, Description = "orly" };
@@ -195,6 +195,7 @@ internal class Program
             mapVisualizer.DisplayCreatureInfo(simulation.MovedIMappableInfo.Info,
                                             simulation.TurnCounter,
                                             simulation.ReturnMoveTaken(),
+                                            simulation.PreviousPosition,
                                             simulation.MovedIMappableInfo.Position.ToString());
             Console.ReadKey();
         }
@@ -245,6 +246,6 @@ internal class Program
 
     static void Main(string[] args)
     {
-        Lab9b();    
+        Lab9();    
     }
 }

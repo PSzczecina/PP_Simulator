@@ -22,6 +22,7 @@ public class MapVisualizer
      */
     public void Draw()
     {
+        Display = "";
         DrawMapRows(-1);
         for (int j = 0; j < Map.SizeY; j++) //kolumny
         {
@@ -83,10 +84,10 @@ public class MapVisualizer
         Display+=("\n");
     }
 
-    public void DisplayCreatureInfo(string info, int turn, string dir, string position="<TBA>")
+    public void DisplayCreatureInfo(string info, int turn, string dir, string start="<TBA>", string position="<TBA>")
     {
         Console.WriteLine($"Tura {turn}.");
-        Console.WriteLine($"{info} ruszył na pozycje {position}.");
+        Console.WriteLine($"{info} ruszył z pozycji {start} na pozycje {position}.");
         Console.WriteLine($"Był to kierunek: {dir}");
     }
 

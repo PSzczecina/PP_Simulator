@@ -14,6 +14,8 @@ public class Simulation
     public IMappable MovedIMappableInfo;
     public string ReturnMoveTaken() => moveTaken;
 
+    public string PreviousPosition { get; private set; }
+
     /// <summary>
     /// Simulation's map.
     /// </summary>
@@ -97,6 +99,7 @@ public class Simulation
         if (Finished) {
             throw new Exception("End of simulation");
         }
+        PreviousPosition = CurrentIMappable.Position.ToString();
         MovedIMappableInfo = CurrentIMappable;
         //ten segment sprawdza czy teraźniejszy element w Moves jest poprawny. Jak nie - usuwa go i sprawdza następny
         var current_move = DirectionParser.Parse(CurrentMoveName);

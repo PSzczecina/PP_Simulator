@@ -5,13 +5,33 @@
 /// </summary>
 public abstract class Map
 {
-    public abstract void Add(Point point, IMappable iMappable);
-    public abstract void Remove(Point point, IMappable iMappable);
+    public virtual void Add(Point point, IMappable iMappable)
+    {
+        if (!_fields.ContainsKey(point)) _fields.Add(point, new List<IMappable>());
+        _fields[point].Add(iMappable);
+    }
+
+    public virtual void Remove(Point point, IMappable iMappable)
+    {
+        _fields[point]?.Remove(iMappable);
+    }
     public abstract void Move(Point oldpoint, Point newpoint, IMappable iMappable);
-    public abstract List<IMappable>? At(int x, int y);
+
+
+    public virtual List<IMappable>? At(int x, int y){
+        var p = new Point(x, y);
+        if (!_fields.ContainsKey(p)) return null;
+        return _fields[p];
+    }
     //At(x,y)
-    public abstract List<IMappable>? At(Point point);
+    public virtual List<IMappable>? At(Point point)
+    {
+        if (!_fields.ContainsKey(point)) return null;
+        return _fields[point];
+    }
     //At(point)
+
+    protected Dictionary<Point, List<IMappable>> _fields;
 
     public int SizeX { get; }
     public int SizeY { get; }

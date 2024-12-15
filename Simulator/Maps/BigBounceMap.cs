@@ -8,6 +8,15 @@ public class BigBounceMap : BigMap
     //kolejno: idą w ścianę pierwszy krok > odbijają się w drugą stronę > idą drugi krok do ścian.
     //Kończą w tym samym miejscu co wcześniej
 
+    //ten konstruktor jest potrzebny aby działał simulationHistory. Być może usunę, jak uznam że jest lepszy sposób na to.
+    public BigBounceMap(int sizeX, int sizeY, Dictionary<Point, List<IMappable>> _fields) : base(sizeX, sizeY) { 
+        this._fields = _fields;
+    }
+    public BigBounceMap DeepCopy()
+    {
+        return new BigBounceMap(this.SizeX, this.SizeY, this._fields);
+    }
+
     //update - teraz po prostu odbija się od ściany o 1 - czemu, to już inne pytanie
     //jak stoją 1 pole od ściany i udeżyłyby w nią - stoją w miejscu
     //?

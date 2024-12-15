@@ -7,4 +7,6 @@ public interface IMappable
     string Symbol { get; }
     void Go(Direction direction);
     void InitMapAndPosition(Map map, Point point);
+
+    public string ToString();
 }
