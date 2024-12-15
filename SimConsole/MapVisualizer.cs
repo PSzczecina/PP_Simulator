@@ -113,13 +113,6 @@ public class MapVisualizer
         Display+=("\n");
     }
 
-    public void DisplayCreatureInfo(string info, int turn, string dir, string position="<TBA>", string start = "<TBA>")
-    {
-        Console.WriteLine($"Tura {turn}.");
-        Console.WriteLine($"{info} ruszył z pozycji {start} na pozycje {position}.");
-        Console.WriteLine($"Był to kierunek: {dir}");
-    }
-
     public void SetMap(Map _map)
     {
         this.Map = _map;

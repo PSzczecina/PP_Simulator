@@ -220,6 +220,7 @@ internal class Program
         SimulationHistory simHistory = new(simulation);
 
         MapVisualizer mapVisualizer = new(simulation.Map);
+        LogVisulizer logVisualizer = new(simHistory);
 
         mapVisualizer.Draw();
         mapVisualizer.DisplayMap();
@@ -238,6 +239,7 @@ internal class Program
                 mapVisualizer.SetMap(map);
                 mapVisualizer.Draw(simHistory.TurnLogs[tura].Symbols);
                 mapVisualizer.DisplayMap();
+                logVisualizer.Draw(tura);
             }
             //mapVisualizer.DisplayCreatureInfo(simHistory.MovedMappables[tura-1].Info,
             //                                tura,

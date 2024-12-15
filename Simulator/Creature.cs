@@ -62,7 +62,7 @@ public abstract class Creature : IMappable
     public override string ToString()
     {
         string type = GetType().Name.ToUpper();
-        string output = type + ": "+ Info;
+        string output = type + ": "+ Info + ", "+Position;
         return output;
     }
     public Creature(string name="Unknown", int level=1)

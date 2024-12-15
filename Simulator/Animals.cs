@@ -18,7 +18,7 @@ public class Animals : IMappable
     public virtual string ToString()
     {
         string type = GetType().Name.ToUpper();
-        string output = type + ": " + Info;
+        string output = type + ": " + Info+", "+Position;
         return output;
     }
 
