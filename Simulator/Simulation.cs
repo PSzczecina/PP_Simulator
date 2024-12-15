@@ -75,6 +75,8 @@ public class Simulation
             Map.Add(Positions[i], IMappables[i]);
         }
         Moves = moves;  //DirectionParser.Parse(moves).ToString();
+
+        MovedIMappableInfo = IMappables[0];
     }
 
     public Simulation(Simulation q)

@@ -9,7 +9,7 @@ namespace Simulator;
 
 public class Elf : Creature
 {
-    public override string Symbol { get { return "E"; } }
+    public override char Symbol { get { return 'E'; } }
     private int sing_count;
     private int agility;
     public int Agility {

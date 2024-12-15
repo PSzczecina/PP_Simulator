@@ -1,36 +1,61 @@
 ﻿using Simulator.Maps;
+using System.Diagnostics.SymbolStore;
 
 namespace Simulator;
 
 public class SimulationHistory
 {
-    public Simulation simulation { get; private set; }
+    private Simulation _simulation { get; }
+    public int SizeX { get; }
+    public int SizeY { get; }
+    public List<SimulationTurnLog> TurnLogs { get; } = [];
+    // store starting positions at index 0
 
-    //jest problem - pozycja stworów na mapie nie działa - trzeba naprawić
-    public List<Map> MapStates { get; private set; }
-    public List<IMappable> MovedMappables { get; }
-    public List<Point> MovedToPoints { get; }
-    public List<string> Moves { get; private set; }
-
-
-    public SimulationHistory(Simulation sim)
+    public SimulationHistory(Simulation simulation)
     {
-        simulation = sim;
-        MovedMappables = new List<IMappable>();
-        MovedToPoints = new List<Point>();
-        MapStates = new List<Map>();
-        Moves = new List<string>();
-
-        while (!simulation.Finished)
-        {
-            MovedMappables.Add(sim.CurrentIMappable);
-            //trzeba naprawić
-            Map temp = simulation.Map;
-            MapStates.Add(temp);
-
-            simulation.Turn();
-            MovedToPoints.Add(sim.MovedIMappableInfo.Position);
-        }
+        _simulation = simulation ??
+            throw new ArgumentNullException(nameof(simulation));
+        SizeX = _simulation.Map.SizeX;
+        SizeY = _simulation.Map.SizeY;
+        Run();
     }
 
+    private void Run()
+    {
+        //bierze wszystkie IMappable i wrzuca je do zmiennej, aby potem dać do Turnloga
+        var symbs = new Dictionary<Point, char>();
+        foreach (var symb in _simulation.IMappables)
+        {
+            if (symbs.ContainsKey(symb.Position)) symbs[symb.Position] = 'X';
+            else symbs.Add(symb.Position, symb.Symbol);
+        }
+
+        TurnLogs.Add(new SimulationTurnLog()
+        {
+
+            Mappable = _simulation.MovedIMappableInfo.ToString(),
+            Move = _simulation.ReturnMoveTaken(),
+            Symbols = symbs
+        });
+
+        while (!_simulation.Finished)
+        {
+            _simulation.Turn();
+            //bierze wszystkie IMappable i wrzuca je do zmiennej, aby potem dać do Turnloga
+            symbs = new Dictionary<Point, char>();
+            foreach (var symb in _simulation.IMappables)
+            {
+                if (symbs.ContainsKey(symb.Position)) symbs[symb.Position] = 'X';
+                else symbs.Add(symb.Position, symb.Symbol);
+            }
+
+            TurnLogs.Add(new SimulationTurnLog()
+            {
+
+                Mappable = _simulation.MovedIMappableInfo.ToString(),
+                Move = _simulation.ReturnMoveTaken(),
+                Symbols = symbs
+            });
+        }
+    }
 }

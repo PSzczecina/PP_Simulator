@@ -33,7 +33,7 @@ namespace Simulator;
 
 public abstract class Creature : IMappable
 {
-    public abstract string Symbol { get; }
+    public abstract char Symbol { get; }
     public Map? Map { get; private set; }
     public Point Position { get; private set; }
 

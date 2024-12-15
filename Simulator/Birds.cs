@@ -9,10 +9,10 @@ namespace Simulator;
 
 public class Birds : Animals, IFlying
 {
-    public override string Symbol { 
-        get { if (canFly == true) return "B";
-            else if (canFly == false) return "b";
-            else return "q";
+    public override char Symbol { 
+        get { if (canFly == true) return 'B';
+            else if (canFly == false) return 'b';
+            else return 'q';
         } 
     }
     private bool canFly = true;

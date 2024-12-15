@@ -5,7 +5,7 @@ namespace Simulator;
 
 public class Animals : IMappable
 {
-    public virtual string Symbol { get { return "A"; } }
+    public virtual char Symbol { get { return 'A'; } }
     public Map? Map { get; private set; }
     public Point Position { get; protected set; }
 

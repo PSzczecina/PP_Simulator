@@ -48,6 +48,35 @@ public class MapVisualizer
         Display+= ("\n");
     }
 
+    //na wszelki stworzę nową metodę do tego - ona, zamiast brać pole _fields z mapy, bierze podany słownik stworów.
+    //założenie jest takie, że wrzuci się pasujący słownik i będzie sprawdzać czy ten słownik ma punkt jaki teraz rysuje
+    public void Draw(Dictionary<Point,char> entities)
+    {
+        Display = "";
+        DrawMapRows(-1);
+        for (int j = 0; j < Map.SizeY; j++) //kolumny
+        {
+            if (j == 0) DrawMapRows(0);
+            else DrawMapRows(1);
+            for (int i = 0; i < Map.SizeX * 2 + 1; i++)
+            { //wiersze - szerokości X*2+1, bo |o| |e| == trzy miejsca i 4 segmenty mapy
+                if (i == 0) Display += ($"{j,-3}");
+                if (i % 2 == 0) Display += (Box.Vertical);
+                else
+                {//tutaj kod czy pojawia się stwór czy nic
+                    if (entities.ContainsKey(new Point(i/2,j)) )
+                    {
+                        Display += entities[new Point(i / 2, j)];
+                    }
+                    else Display += (" ");
+                }
+            }
+            Display += ("\n");
+        }
+        DrawMapRows(2);
+        Display += ("\n");
+    }
+
     private void DrawMapRows(int position) //position: 0-top, 1-middle, 2-bottom, -1-legenda do Y
     {
         if (position == -1) Display+=("y\\x");
@@ -84,7 +113,7 @@ public class MapVisualizer
         Display+=("\n");
     }
 
-    public void DisplayCreatureInfo(string info, int turn, string dir, string start="<TBA>", string position="<TBA>")
+    public void DisplayCreatureInfo(string info, int turn, string dir, string position="<TBA>", string start = "<TBA>")
     {
         Console.WriteLine($"Tura {turn}.");
         Console.WriteLine($"{info} ruszył z pozycji {start} na pozycje {position}.");

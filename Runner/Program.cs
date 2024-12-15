@@ -195,12 +195,13 @@ internal class Program
             mapVisualizer.DisplayCreatureInfo(simulation.MovedIMappableInfo.Info,
                                             simulation.TurnCounter,
                                             simulation.ReturnMoveTaken(),
-                                            simulation.PreviousPosition,
-                                            simulation.MovedIMappableInfo.Position.ToString());
+                                            simulation.MovedIMappableInfo.Position.ToString(),
+                                            simulation.PreviousPosition);
             Console.ReadKey();
         }
     }
 
+    //używane nadal do Lab10 
     static void Lab9b()
     {
         bool cleanmode = false; //true to że czyści konsolkę co readkey. Jak coś to podmienię zwyczajnie na false - ewentualnie usunę
@@ -222,22 +223,28 @@ internal class Program
 
         mapVisualizer.Draw();
         mapVisualizer.DisplayMap();
-        Console.WriteLine($"podaj turę z {simHistory.MapStates.Count} jaką chcesz: ");
+        Console.WriteLine($"podaj turę z {simHistory.TurnLogs.Count()-1} jaką chcesz ('0' to początek symulacji): ");
         int tura = int.Parse(Console.ReadLine());
         while (true)
         {
 
             if (cleanmode) Console.Clear();
-            mapVisualizer.SetMap(simHistory.MapStates[tura]);
-            mapVisualizer.Draw();
-            mapVisualizer.DisplayMap();
+            if (tura>=simHistory.TurnLogs.Count() || tura < 0)
+            {
+                Console.WriteLine("Takiej Tury nie ma, musisz podać inną.");
+            }
+            else
+            {
+                mapVisualizer.SetMap(map);
+                mapVisualizer.Draw(simHistory.TurnLogs[tura].Symbols);
+                mapVisualizer.DisplayMap();
+            }
+            //mapVisualizer.DisplayCreatureInfo(simHistory.MovedMappables[tura-1].Info,
+            //                                tura,
+            //                                "tba",
+            //                                simHistory.MovedToPoints[tura-1].ToString());
 
-            mapVisualizer.DisplayCreatureInfo(simHistory.MovedMappables[tura-1].Info,
-                                            tura,
-                                            "tba",
-                                            simHistory.MovedToPoints[tura-1].ToString());
-
-            Console.WriteLine($"podaj turę z {simHistory.MapStates.Count} jaką chcesz: ");
+            Console.WriteLine($"podaj turę z {simHistory.TurnLogs.Count()-1} jaką chcesz ('0' to początek symulacji): ");
             tura = int.Parse(Console.ReadLine());
         }
     }
@@ -246,6 +253,6 @@ internal class Program
 
     static void Main(string[] args)
     {
-        Lab9();    
+        Lab9b();    
     }
 }
