@@ -10,7 +10,7 @@ public class MapVisualizer
         Map = _map;
     }
 
-    public string Display { get; private set; }
+    public string Display { get; private set; } = "";
     /*
      * Mapa jest rysowana tak, że X idzie w prawo, a Y w dół
      * 

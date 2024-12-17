@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\css\Blank.png" />
+    <Content Remove="wwwroot\css\X.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\Blank.png" />
+    <None Include="wwwroot\css\A.png" />
+    <None Include="wwwroot\css\Bl.png" />
+    <None Include="wwwroot\css\Bnl.png" />
+    <None Include="wwwroot\css\X.png" />
+    <None Include="wwwroot\css\E.png" />
+    <None Include="wwwroot\css\O.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Simulator\Simulator.csproj" />
+  </ItemGroup>
+
+</Project>
